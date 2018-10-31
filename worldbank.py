@@ -2,6 +2,7 @@ import json
 import plotly
 import pandas as pd
 import nltk
+import pickle
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 
@@ -12,7 +13,7 @@ from sklearn.externals import joblib
 from sklearn.feature_extraction.text import CountVectorizer
 from sqlalchemy import create_engine
 from nltk.corpus import stopwords
-import os
+
 
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
