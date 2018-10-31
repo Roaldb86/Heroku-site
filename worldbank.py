@@ -40,7 +40,7 @@ model = joblib.load("../models/classifier.pkl")
 app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('worldbankapp/templates/index.html')
 
 @app.route('/disaster')
 def disaster():
