@@ -1,6 +1,3 @@
-
-from worldbankapp import app
-
 import json
 import plotly
 import pandas as pd
@@ -18,7 +15,8 @@ from nltk.corpus import stopwords
 
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
-nltk.download('stopwords')
+
+app = Flask(__name__)
 
 
 def tokenize(text):
@@ -39,7 +37,7 @@ df = pd.read_sql_table('disaster_data', engine)
 # load model
 model = joblib.load("../models/classifier.pkl")
 
-app.route('/')
+@app.route('/')
 @app.route('/index')
 def index():
     return render_template('worldbankapp/templates/index.html')
