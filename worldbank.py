@@ -18,6 +18,8 @@ from nltk.corpus import stopwords
 
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
+nltk.download('stopwords')
+
 
 def tokenize(text):
     tokens = word_tokenize(text)
