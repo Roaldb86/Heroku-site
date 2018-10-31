@@ -12,6 +12,7 @@ from sklearn.externals import joblib
 from sklearn.feature_extraction.text import CountVectorizer
 from sqlalchemy import create_engine
 from nltk.corpus import stopwords
+import os
 
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
@@ -29,7 +30,7 @@ def tokenize(text):
         clean_tokens.append(clean_tok)
 
     return clean_tokens
-
+print(os.getcwd)
 # load data
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
