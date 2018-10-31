@@ -33,13 +33,14 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-model = joblib.load('small_model.pickle')
+
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('disaster_data', engine)
 except:
     print("path error to sql db")
-
+    
+model = joblib.load('small_model.pickle')
 
 # # try:
 # #
