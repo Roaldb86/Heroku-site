@@ -38,7 +38,7 @@ except:
     print("path error to sql db")
 
 try:
-    model = joblib.load("small_model.pkl")
+    model = joblib.load("/tmp/small_model.pkl")
 except:
     print("no model")
 
