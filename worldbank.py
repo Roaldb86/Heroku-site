@@ -32,7 +32,6 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-__main__.tokenize = tokenize()
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('disaster_data', engine)
