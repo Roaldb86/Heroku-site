@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from worldbankapp import app
 import json, plotly
 from flask import render_template
@@ -112,3 +113,36 @@ def go():
         query=query,
         classification_result=classification_results
     )
+||||||| merged common ancestors
+=======
+from worldbankapp import app
+import json, plotly
+from flask import render_template
+from wrangling_scripts.wrangle_data import return_figures
+
+@app.route('/')
+@app.route('/index')
+def index():
+
+
+    return render_template('index.html')
+# def index():
+#
+#     figures = return_figures()
+#
+#     # plot ids for the html id tag
+#     ids = ['figure-{}'.format(i) for i, _ in enumerate(figures)]
+#
+#     # Convert the plotly figures to JSON for javascript in html template
+#     figuresJSON = json.dumps(figures, cls=plotly.utils.PlotlyJSONEncoder)
+#
+#     return render_template('index.html',
+#                            ids=ids,
+#                            figuresJSON=figuresJSON)
+
+@app.route('/site_one')
+def site_one():
+
+
+    return render_template('site_one.html')
+>>>>>>> 0cbfbe8ce0552b3c7c50c3a3253ae3cede443cb3
