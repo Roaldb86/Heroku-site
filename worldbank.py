@@ -20,7 +20,7 @@ from wrangling_scripts.wrangle_data import return_figures
 nltk.download("stopwords")
 
 app = Flask(__name__)
-
+model = joblib.load('small_model.pickle')
 def tokenize(text):
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -36,11 +36,11 @@ def tokenize(text):
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('disaster_data', engine)
-except:
-    print("path error to sql db")
-
-try:
-    model = joblib.load('small_model.pickle')
+# except:
+#     print("path error to sql db")
+#
+# try:
+#
 except:
     print("no model")
 
