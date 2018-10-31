@@ -14,7 +14,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sqlalchemy import create_engine
 from nltk.corpus import stopwords
 
-
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
 nltk.download("stopwords")
@@ -33,16 +32,16 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-
+__main__.tokenize = tokenize()
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('disaster_data', engine)
 except:
     print("path error to sql db")
-
-file = open('small_model.pickle','rb')
-model = pickle.load(file)
-file.close()
+try:
+    joblib.load('small_model.pickle','rb')
+except:
+    print("cant load model")
 
 
 # # try:
