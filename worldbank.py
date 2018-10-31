@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from worldbankapp import app
 
 import json
@@ -33,7 +33,3 @@ df = pd.read_sql_table('disaster_data', engine)
 
 # load model
 model = joblib.load("../models/classifier.pkl")
-||||||| merged common ancestors
-=======
-from worldbankapp import app
->>>>>>> 0cbfbe8ce0552b3c7c50c3a3253ae3cede443cb3
