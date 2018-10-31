@@ -30,7 +30,7 @@ def tokenize(text):
         clean_tokens.append(clean_tok)
 
     return clean_tokens
-print(os.getcwd())
+
 # load data
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
@@ -39,7 +39,7 @@ except:
     print("path error to sql db")
 
 try:
-    model = joblib.load("/tmp/small_model.pkl")
+    model = joblib.load("/app/small_model.pkl")
 except:
     print("no model")
 
