@@ -32,13 +32,16 @@ def tokenize(text):
 
 # load data
 try:
-    engine = create_engine('sqlite:///./data/DisasterResponse.db')
+    engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('disaster_data', engine)
-
-    # load model
-    model = joblib.load("./models/classifier.pkl")
 except:
     print("path error to sql db")
+
+try:
+    model = joblib.load("./models/classifier.pkl")
+except:
+    print("no model")
+
 
 @app.route('/')
 @app.route('/index')
