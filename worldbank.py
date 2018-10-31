@@ -32,7 +32,7 @@ def tokenize(text):
 
 # load data
 try:
-    engine = create_engine('sqlite:////DisasterResponse.db')
+    engine = create_engine('sqlite:///DisasterResponse.db')
     df = pd.read_sql_table('disaster_data', engine)
 except:
     print("path error to sql db")
