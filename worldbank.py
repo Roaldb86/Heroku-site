@@ -30,7 +30,7 @@ def tokenize(text):
         clean_tokens.append(clean_tok)
 
     return clean_tokens
-print(os.getcwd)
+print(os.getcwd())
 # load data
 try:
     engine = create_engine('sqlite:///DisasterResponse.db')
