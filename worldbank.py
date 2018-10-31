@@ -42,17 +42,14 @@ try:
 except:
     print("cant load model")
 
-
-# # try:
-# #
-# except:
-#     print("no model")
-
-
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/flowers')
+def flowers():
+    return render_template('flowers.html')
 
 @app.route('/disaster')
 def disaster():
