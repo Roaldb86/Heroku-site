@@ -28,11 +28,14 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:////data/DisasterResponse.db')
-df = pd.read_sql_table('disaster_data', engine)
+try:
+    engine = create_engine('sqlite:///data/DisasterResponse.db')
+    df = pd.read_sql_table('disaster_data', engine)
 
-# load model
-model = joblib.load("../models/classifier.pkl")
+    # load model
+    model = joblib.load("models/classifier.pkl")
+except:
+    print("path error to sql db")
 
 @app.route('/')
 @app.route('/index')
