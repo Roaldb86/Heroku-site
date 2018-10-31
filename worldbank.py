@@ -16,9 +16,6 @@ from nltk.corpus import stopwords
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
 
-app = Flask(__name__)
-
-
 def tokenize(text):
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
@@ -40,7 +37,7 @@ model = joblib.load("../models/classifier.pkl")
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('worldbankapp/templates/index.html')
+    return render_template('index.html')
 
 @app.route('/disaster')
 def disaster():
