@@ -39,8 +39,11 @@ try:
     df = pd.read_sql_table('disaster_data', engine)
 except:
     print("path error to sql db")
-    
-model = joblib.load('small_model.pickle')
+
+file = open('small_model.pickle','rb')
+model = pickle.load(file)
+file.close()
+
 
 # # try:
 # #
