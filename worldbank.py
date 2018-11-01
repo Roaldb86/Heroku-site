@@ -16,18 +16,21 @@ from nltk.corpus import stopwords
 
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
+
+
 nltk.download("stopwords")
 
 app = Flask(__name__)
 
-def tokenize(text):
-    tokens = word_tokenize(text)
-    lemmatizer = WordNetLemmatizer()
 
-    clean_tokens = []
-    for tok in tokens:
-        clean_tok = lemmatizer.lemmatize(tok).lower().strip()
-        clean_tokens.append(clean_tok)
+def tokenize(text):
+    """Takes a text as input an returns a list of tokenized words"""
+    stop_words = stopwords.words("english")
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text).lower().strip()
+    words = word_tokenize(text)
+    clean_words = [w for w in words if w not in stopwords.words("english")]
+    tokens = [WordNetLemmatizer().lemmatize(w) for w in words if w not in stop_words]
+    return [PorterStemmer().stem(w) for w in tokens]
 
     return clean_tokens
 
