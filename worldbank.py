@@ -18,7 +18,7 @@ from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.stem.porter import PorterStemmer
-
+from models.train_classifier_for_web import tokenize, main
 
 nltk.download('punkt')
 nltk.download('stopwords')
