@@ -26,22 +26,23 @@ nltk.download('wordnet')
 
 app = Flask(__name__)
 
+@app.before_first_request
+def tokenize(text):
+    """Takes a text as input an returns a list of tokenized words"""
+    stop_words = stopwords.words("english")
+    text = re.sub(r"[^a-zA-Z0-9]", " ", text).lower().strip()
+    words = word_tokenize(text)
+    clean_words = [w for w in words if w not in stopwords.words("english")]
+    tokens = [WordNetLemmatizer().lemmatize(w) for w in words if w not in stop_words]
+    return [PorterStemmer().stem(w) for w in tokens]
 
-# def tokenize(text):
-#     """Takes a text as input an returns a list of tokenized words"""
-#     stop_words = stopwords.words("english")
-#     text = re.sub(r"[^a-zA-Z0-9]", " ", text).lower().strip()
-#     words = word_tokenize(text)
-#     clean_words = [w for w in words if w not in stopwords.words("english")]
-#     tokens = [WordNetLemmatizer().lemmatize(w) for w in words if w not in stop_words]
-#     return [PorterStemmer().stem(w) for w in tokens]
-#
-#     return clean_tokens
+    return clean_tokens
+
 @app.before_first_request
 def main():
     global model
     global df
-    
+
     try:
         engine = create_engine('sqlite:///DisasterResponse.db')
         df = pd.read_sql_table('disaster_data', engine)
@@ -154,6 +155,3 @@ def go():
         'go.html',
         query=query,
         classification_result=classification_results)
-
-if __name__ == '__main__':
-    df, model = main()
