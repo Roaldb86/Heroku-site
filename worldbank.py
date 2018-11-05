@@ -41,13 +41,15 @@ app = Flask(__name__)
 def main():
     try:
         engine = create_engine('sqlite:///DisasterResponse.db')
-        global df = pd.read_sql_table('disaster_data', engine)
+        df = pd.read_sql_table('disaster_data', engine)
     except:
         print("path error to sql db")
     try:
-        global model = joblib.load('web_model.sav','rb')
+        model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
+
+    return df, model
 
 
 @app.route('/')
@@ -61,7 +63,7 @@ def flowers():
 
 @app.route('/disaster')
 def disaster():
-    global df
+
         ## extract data needed for visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
@@ -138,7 +140,7 @@ def disaster():
 
 @app.route('/go')
 def go():
-    global model
+
     # save user input in query
     query = request.args.get('query', '')
 
