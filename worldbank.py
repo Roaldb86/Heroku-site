@@ -39,16 +39,16 @@ app = Flask(__name__)
 #
 #     return clean_tokens
 
-# load data
-try:
-    engine = create_engine('sqlite:///DisasterResponse.db')
-    df = pd.read_sql_table('disaster_data', engine)
-except:
-    print("path error to sql db")
-try:
-    joblib.load('web_model.sav','rb')
-except Exception as e:
-    print("cant load model", e)
+def main():
+    try:
+        engine = create_engine('sqlite:///DisasterResponse.db')
+        df = pd.read_sql_table('disaster_data', engine)
+    except:
+        print("path error to sql db")
+    try:
+        joblib.load('web_model.sav','rb')
+    except Exception as e:
+        print("cant load model", e)
 
 @app.route('/')
 @app.route('/index')
@@ -149,3 +149,6 @@ def go():
         'go.html',
         query=query,
         classification_result=classification_results)
+
+if __name__ == '__main__':
+    main()
