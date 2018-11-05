@@ -16,9 +16,13 @@ from nltk.corpus import stopwords
 
 from flask import render_template
 from wrangling_scripts.wrangle_data import return_figures
+from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.stem.porter import PorterStemmer
 
 
-nltk.download("stopwords")
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 app = Flask(__name__)
 
@@ -41,7 +45,7 @@ try:
 except:
     print("path error to sql db")
 try:
-    joblib.load('small_model.pickle','rb')
+    joblib.load('web_model.pkl','rb')
 except:
     print("cant load model")
 
