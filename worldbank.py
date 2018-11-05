@@ -39,8 +39,6 @@ app = Flask(__name__)
 #     return clean_tokens
 
 def main():
-    global df
-    global model
 
     try:
         engine = create_engine('sqlite:///DisasterResponse.db')
@@ -51,6 +49,8 @@ def main():
         model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
+
+    return df, model
 
 
 
@@ -66,7 +66,7 @@ def flowers():
 
 @app.route('/disaster')
 def disaster():
-    global df
+
         ## extract data needed for visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
@@ -143,7 +143,7 @@ def disaster():
 
 @app.route('/go')
 def go():
-    global model
+
     # save user input in query
     query = request.args.get('query', '')
 
@@ -158,4 +158,4 @@ def go():
         classification_result=classification_results)
 
 if __name__ == '__main__':
-    main()
+    df, model = main()
