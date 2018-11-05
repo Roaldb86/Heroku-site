@@ -37,9 +37,11 @@ app = Flask(__name__)
 #     return [PorterStemmer().stem(w) for w in tokens]
 #
 #     return clean_tokens
-
+@app.before_first_request
 def main():
-
+    global model
+    global df
+    
     try:
         engine = create_engine('sqlite:///DisasterResponse.db')
         df = pd.read_sql_table('disaster_data', engine)
@@ -50,10 +52,6 @@ def main():
     except Exception as e:
         print("cant load model", e)
     print("main method has been triggered")
-    return df, model
-
-
-
 
 @app.route('/')
 @app.route('/index')
