@@ -41,14 +41,14 @@ app = Flask(__name__)
 def main():
     try:
         engine = create_engine('sqlite:///DisasterResponse.db')
-        df = pd.read_sql_table('disaster_data', engine)
+        global df = pd.read_sql_table('disaster_data', engine)
     except:
         print("path error to sql db")
     try:
-        model = joblib.load('web_model.sav','rb')
+        global model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
-    return df, model
+
 
 @app.route('/')
 @app.route('/index')
