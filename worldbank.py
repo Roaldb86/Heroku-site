@@ -26,7 +26,7 @@ nltk.download('wordnet')
 
 app = Flask(__name__)
 
-@app.before_first_request
+
 def tokenize(text):
     """Takes a text as input an returns a list of tokenized words"""
     stop_words = stopwords.words("english")
