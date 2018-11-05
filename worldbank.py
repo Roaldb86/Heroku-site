@@ -5,7 +5,6 @@ import nltk
 import pickle
 from nltk.stem import WordNetLemmatizer
 
-
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
@@ -46,9 +45,10 @@ def main():
     except:
         print("path error to sql db")
     try:
-        joblib.load('web_model.sav','rb')
+        model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
+    return df, model
 
 @app.route('/')
 @app.route('/index')
@@ -61,6 +61,7 @@ def flowers():
 
 @app.route('/disaster')
 def disaster():
+    global df
         ## extract data needed for visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
@@ -137,6 +138,7 @@ def disaster():
 
 @app.route('/go')
 def go():
+    global model
     # save user input in query
     query = request.args.get('query', '')
 
@@ -151,4 +153,4 @@ def go():
         classification_result=classification_results)
 
 if __name__ == '__main__':
-    main()
+    df, model = main()
