@@ -49,7 +49,7 @@ def main():
         model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
-
+    print("main method has been triggered")
     return df, model
 
 
