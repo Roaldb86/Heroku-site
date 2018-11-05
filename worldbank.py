@@ -47,7 +47,7 @@ except:
 try:
     joblib.load('web_model.sav','rb')
 except Exception as e:
-    print("cant load model", e.message, e.args)
+    print("cant load model", e)
 
 @app.route('/')
 @app.route('/index')
