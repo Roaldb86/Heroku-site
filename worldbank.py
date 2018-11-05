@@ -46,7 +46,7 @@ except:
     print("path error to sql db")
 try:
     joblib.load('web_model.sav','rb')
-except as e:
+except Exception as e:
     print("cant load model", e.message, e.args)
 
 @app.route('/')
