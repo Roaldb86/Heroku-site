@@ -47,7 +47,6 @@ def main():
     except:
         print("path error to sql db")
     try:
-        attribute.__module__ = ""
         model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
