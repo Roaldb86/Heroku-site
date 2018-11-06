@@ -20,7 +20,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, fbeta_score, make_scorer
 from sklearn.model_selection import GridSearchCV
 from sklearn.externals import joblib
-
+from models.utils import tokenize
 import pickle
 
 nltk.download('punkt')
@@ -38,17 +38,6 @@ def load_data(database_filepath):
 
     return X, Y, target_names
 
-def tokenize(text):
-    """Takes a text as input an returns a list of tokenized words"""
-    stop_words = stopwords.words("english")
-    text = re.sub(r"[^a-zA-Z0-9]", " ", text).lower().strip()
-    words = word_tokenize(text)
-    clean_words = [w for w in words if w not in stopwords.words("english")]
-    tokens = [WordNetLemmatizer().lemmatize(w) for w in words if w not in stop_words]
-    clean_tokens = [PorterStemmer().stem(w) for w in tokens]
-
-    return clean_tokens
-
 def build_model():
     """Builds a model. returns a GridSearchCV object"""
     pipeline = Pipeline([
@@ -56,10 +45,10 @@ def build_model():
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier(), n_jobs=1)),
         ])
-    parameters = {'clf__estimator__max_depth': [30],
+    parameters = {'clf__estimator__max_depth': [40],
                   'clf__estimator__min_samples_leaf': [5],
                   'clf__estimator__min_samples_split': [5],
-                  'clf__estimator__n_estimators': [100]}
+                  'clf__estimator__n_estimators': [200]}
 
 
 
@@ -77,10 +66,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 def save_model(model, model_filepath):
     """Takes model and path for saving as input and saves the model"""
-    # pickle.dump(model, open(model_filepath, 'wb'))
-
+    pickle.dump(model, open(model_filepath, 'wb'))
     # Uncommetn for joblib saving
-    joblib.dump(model, model_filepath)
+    # joblib.dump(model, model_filepath)
 
 def main():
     """Main function"""
