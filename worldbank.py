@@ -27,32 +27,31 @@ nltk.download('wordnet')
 app = Flask(__name__)
 
 
-def tokenize(text):
-    """Takes a text as input an returns a list of tokenized words"""
-    stop_words = stopwords.words("english")
-    text = re.sub(r"[^a-zA-Z0-9]", " ", text).lower().strip()
-    words = word_tokenize(text)
-    clean_words = [w for w in words if w not in stopwords.words("english")]
-    tokens = [WordNetLemmatizer().lemmatize(w) for w in words if w not in stop_words]
-    return [PorterStemmer().stem(w) for w in tokens]
 
-    return clean_tokens
 
 @app.before_first_request
 def main():
-    global model
-    global df
+    def tokenize(text):
+        """Takes a text as input an returns a list of tokenized words"""
+        stop_words = stopwords.words("english")
+        text = re.sub(r"[^a-zA-Z0-9]", " ", text).lower().strip()
+        words = word_tokenize(text)
+        clean_words = [w for w in words if w not in stopwords.words("english")]
+        tokens = [WordNetLemmatizer().lemmatize(w) for w in words if w not in stop_words]
+        return [PorterStemmer().stem(w) for w in tokens]
 
+        return clean_tokens
     try:
         engine = create_engine('sqlite:///DisasterResponse.db')
         df = pd.read_sql_table('disaster_data', engine)
     except:
         print("path error to sql db")
     try:
+        attribute.__module__ = ""
         model = joblib.load('web_model.sav','rb')
     except Exception as e:
         print("cant load model", e)
-    print("main method has been triggered")
+
 
 @app.route('/')
 @app.route('/index')
@@ -66,7 +65,7 @@ def flowers():
 @app.route('/disaster')
 def disaster():
 
-        ## extract data needed for visuals
+    # extract data needed for visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
 
